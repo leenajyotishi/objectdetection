@@ -10,9 +10,19 @@
 
 
 <div class="container">
-<form method="POST" enctype="multipart/form-data" action="/upload">
+    <form action="/review" id="search" method="POST" class="search-box-div">
+      <legend id="legend">Search Product</legend>
+      <div class="form-group">
+        <input type="text" name="content" class="form-control" id="Searchproduct" aria-describedby="SearchProduct"
+        placeholder="What are you looking for?">
+    </div>
+    <button  type="submit" class="btn btn-primary button" >Search</button>
+  </form>
+</div>
+<div class="container">
+<form method="POST" enctype="multipart/form-data" action="/upload" id="search1" >
   <input type="file" name="file[]" multiple="">
-  <input type="submit" value="add">
+  
   <button  type="submit" class="btn btn-primary button" value="add">Search</button>
 </form>
 </div>
