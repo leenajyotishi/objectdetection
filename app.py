@@ -200,7 +200,7 @@ def show_wordcloud():
 	return render_template("show_wc.html", user_image = full_filename)
 # route to display wordcloud
 @app.route('/upload')  
-@cross_origin()
+
 def show_upload():
 	img_file = os.listdir(app.config['IMG_FOLDER'])[0]
 	full_filename = os.path.join(app.config['IMG_FOLDER'], img_file)
