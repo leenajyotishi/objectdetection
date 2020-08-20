@@ -19,7 +19,10 @@
     <button  type="submit" class="btn btn-primary button" >Search</button>
   </form>
 </div>
-<h5 class=".text-muted copyright">&copy; c17hawke</h5>
 
+<form method="POST" enctype="multipart/form-data" action="/upload">
+  <input type="file" name="file[]" multiple="">
+  <input type="submit" value="add">
+</form>
 
 {% endblock body %}
