@@ -176,7 +176,7 @@ def homePage():
 	return render_template("index.html")
 
 # route to display the review page
-@app.route('/review', methods=("POST", "GET"))
+@app.route('/upload', methods=("POST", "GET"))
 @cross_origin()
 def index():
 	if request.method == 'POST':
