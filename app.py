@@ -178,10 +178,19 @@ def homePage():
 # route to display the review page
 @app.route('/upload')
 @cross_origin()
-def upload():
-            print('Test')
-            return render_template("show_wc.html")
-	
+def index():
+	if request.method == 'POST':
+		try:
+			print('Test')
+		except Exception as e:
+			print(e)
+			
+			return render_template("404.html")
+
+	else:
+		# return index page if home is pressed or for the first run
+		return render_template("index.html")
+
 # route to display wordcloud
 @app.route('/show')  
 @cross_origin()
@@ -189,6 +198,12 @@ def show_wordcloud():
 	img_file = os.listdir(app.config['IMG_FOLDER'])[0]
 	full_filename = os.path.join(app.config['IMG_FOLDER'], img_file)
 	return render_template("show_wc.html", user_image = full_filename)
-
+# route to display wordcloud
+@app.route('/upload')  
+@cross_origin()
+def show_upload():
+	img_file = os.listdir(app.config['IMG_FOLDER'])[0]
+	full_filename = os.path.join(app.config['IMG_FOLDER'], img_file)
+	return render_template("show_wc.html", user_image = full_filename)
 if __name__ == '__main__':
 	app.run()
