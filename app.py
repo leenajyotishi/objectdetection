@@ -168,15 +168,7 @@ class CleanCache:
 				print(fileName)
 				os.remove(os.path.join(self.clean_path,fileName))
 		print("cleaned!")
-@app.route('/upload', methods=['POST'])
-@cross_origin()
-def upload():
-  if not _upload_dir:
-    raise ValueError('Uploads are disabled.')
 
-  uploaded_file = flask.request.files['file']
-  print uploaded_file
-  return flask.redirect(flask.url_for('index'))
 # route to display the home page
 @app.route('/',methods=['GET'])  
 @cross_origin()
@@ -189,71 +181,10 @@ def homePage():
 def index():
 	if request.method == 'POST':
 		try:
-			# get base URL and a search string to query the website
-			base_URL = 'https://www.4statetrucks.com/' # 'https://www.' + input("enter base URL: ")
-			
-			# enter a product name eg "xiaomi"
-			# search_string = input("enter a brandname or a product name: ")
-			search_string = request.form['content']
-			
-			# fill the spaces between seA caption for the above image.arch strings with +
-			search_string = search_string.replace(" ", "+")
-			print('processing...')
-
-			# start counter to count time in seconds
-			start = time.perf_counter()
-
-			get_data = DataCollection()
-
-			# store main HTML page for given search query
-			flipkart_HTML = get_data.get_main_HTML(base_URL, search_string)
-
-			# store all the boxes containing products
-			bigBoxes = flipkart_HTML.find_all("div", {"class":"bhgxx2 col-12-12"})
-
-			# store extracted product name links
-			product_name_Links = get_data.get_product_name_links(base_URL, bigBoxes)
-
-			# iterate over product name and links list
-			for prodName, productLink in product_name_Links[:4]:
-				# iterate over product HTML
-				for prod_HTML in get_data.get_prod_HTML(productLink):
-					try:
-						# extract comment boxes from product HTML
-						comment_boxes = prod_HTML.find_all('div', {'class': '_3nrCtb'})
-
-						prod_price = prod_HTML.find_all('div', {"class": "_1vC4OE _3qQ9m1"})[0].text
-						prod_price = float((prod_price.replace("₹", "")).replace(",", ""))
-						# iterate over comment boxes to extract required data
-						for commentbox in comment_boxes:
-							# prpare final data
-							get_data.get_final_data(commentbox, prodName, prod_price)
-							
-					except:
-						pass
-
-			# save the data as gathered in dataframe
-			df = pd.DataFrame(get_data.get_data_dict())
-
-			# save dataframe as a csv which will be availble to download
-			download_path = get_data.save_as_dataframe(df, fileName=search_string.replace("+", "_"))
-
-			# generate and save the wordcloud image
-			get_data.save_wordcloud_image(df, 
-			img_filename=search_string.replace("+", "_"))
-
-			# finish time counter and calclulate time taked to complet ethis programe
-			finish = time.perf_counter()
-			print(f"program finished with and timelapsed: {finish - start} second(s)")
-			return render_template('review.html', 
-			tables=[df.to_html(classes='data')], # pass the df as html 
-			titles=df.columns.values, # pass headers of each cols
-			search_string = search_string, # pass the search string
-			download_csv=download_path # pass the download path for csv
-			)
+			print('Test')
 		except Exception as e:
 			print(e)
-			# return 404 page if error occurs 
+			
 			return render_template("404.html")
 
 	else:
