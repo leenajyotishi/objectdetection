@@ -176,21 +176,12 @@ def homePage():
 	return render_template("index.html")
 
 # route to display the review page
-@app.route('/upload', methods=("POST", "GET"))
+@app.route('/upload')
 @cross_origin()
-def index():
-	if request.method == 'POST':
-		try:
-			print('Test')
-		except Exception as e:
-			print(e)
-			
-			return render_template("404.html")
-
-	else:
-		# return index page if home is pressed or for the first run
-		return render_template("index.html")
-
+def upload():
+            print('Test')
+            return render_template("show_wc.html")
+	
 # route to display wordcloud
 @app.route('/show')  
 @cross_origin()
