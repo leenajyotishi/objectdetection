@@ -168,11 +168,15 @@ class CleanCache:
 				print(fileName)
 				os.remove(os.path.join(self.clean_path,fileName))
 		print("cleaned!")
-@app.route("/upload", methods=["POST"])
+@app.route('/upload', methods=['POST'])
+@cross_origin()
 def upload():
-    uploaded_files = flask.request.files.getlist("file[]")
-    print uploaded_files
-    return ""
+  if not _upload_dir:
+    raise ValueError('Uploads are disabled.')
+
+  uploaded_file = flask.request.files['file']
+  print uploaded_file
+  return flask.redirect(flask.url_for('index'))
 # route to display the home page
 @app.route('/',methods=['GET'])  
 @cross_origin()
