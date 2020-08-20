@@ -168,7 +168,11 @@ class CleanCache:
 				print(fileName)
 				os.remove(os.path.join(self.clean_path,fileName))
 		print("cleaned!")
-
+@app.route("/upload", methods=["POST"])
+def upload():
+    uploaded_files = flask.request.files.getlist("file[]")
+    print uploaded_files
+    return ""
 # route to display the home page
 @app.route('/',methods=['GET'])  
 @cross_origin()
